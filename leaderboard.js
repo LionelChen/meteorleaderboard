@@ -13,19 +13,18 @@ if (Meteor.isClient) {
       return player && player.name;
     }
   });
-
-  Template.leaderboard.events({
-    'click .add_player': function () {
+  
+  //如果score为0的话插入数据看不到name，如果是其他任何数字都可以看到
+  Template.body.events({
+    'click .addplayer': function () {
 	  var player_name=document.getElementById("plyname").value;
-	  alert(player_name);
-	  Players.insert({"_id" : "gquNP63mJqTjar6","name" : this.player_name, "score" : 0});
+	  Players.insert({"name" : player_name, "score" : -1});
     }
   });
   
   Template.leaderboard.events({
     'click .inc': function () {
       Players.update(Session.get("selectedPlayer"), {$inc: {score: 5}});
-      alert("123");
     }
   });
   
